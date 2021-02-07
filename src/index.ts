@@ -44,6 +44,12 @@ app.get('/productos/:id', (req, res) => {
     res.send(producto)
 })
 
-app.listen(PORT, () => {
+
+
+const server = app.listen(PORT, () => {
     console.log(`Server up in port ${PORT}`)
+})
+
+server.on('error', error => {
+    console.log(`Ha ocurrido el siguiente error ${error}`)
 })

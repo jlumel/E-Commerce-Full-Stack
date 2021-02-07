@@ -35,6 +35,9 @@ app.get('/productos/:id', function (req, res) {
     }
     res.send(producto);
 });
-app.listen(PORT, function () {
+var server = app.listen(PORT, function () {
     console.log("Server up in port " + PORT);
+});
+server.on('error', function (error) {
+    console.log("Ha ocurrido el siguiente error " + error);
 });
