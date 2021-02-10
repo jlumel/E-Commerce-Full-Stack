@@ -12,6 +12,7 @@ const formPOST = '<label for="title">Ingresar nombre del producto</label><input 
 const formPUT = '<label for="id">Ingresar Id del producto</label><input name="id" id="id" type="text"><label for="title">Ingresar nombre del producto</label><input name="title" id="title" type="text"><label for="price">Ingresar precio del producto</label><input name="price" id="price" type="text"><label for="thumbnail">Ingresar URL de la imagen del producto</label><input name="thumbnail" id="thumbnail" type="text"><button type="submit">Modificar producto</button>'
 const formDELETE = '<label for="id">Ingresar Id del producto</label><input name="id" id="id" type="text"><button type="submit">Eliminar producto</button>'
 const formGetById = '<label for="id">Ingresar Id del producto</label><input name="input" id="id" type="text"><button type="submit">Buscar producto</button>'
+const formGetAll = '<button type="submit">Ver productos</button>'
 
 form.innerHTML = formPOST
 
@@ -45,6 +46,11 @@ botones.forEach(btn => {
                 document.querySelector('#id').addEventListener('keyup', e => {
                     form.action = `/api/productos/${e.target.value}`
                 })
+                break;
+                case 'getAll':
+                form.method = 'GET'
+                form.action = '/api/productos'
+                form.innerHTML = formGetAll
                 break;
         }
     })
