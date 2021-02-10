@@ -9,7 +9,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.static('public'))
 app.use('/api', router)
 
-const PORT: number = 3001
+const PORT: number = 8080
 
 interface Product {
     id: number
