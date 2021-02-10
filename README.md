@@ -1,4 +1,4 @@
-# Comandos:
+# Comandos
 
 ## Correr en modo desarrollo
 npm run dev
