@@ -30,6 +30,12 @@ class Productos {
         return producto
     }
 
+    removeProduct(id:number) {
+        const removedProduct = this.list.find(producto => producto.id === id)
+        this.list = this.list.filter(producto => producto !== removedProduct)
+        return removedProduct
+    }
+
 }
 
 export default Productos
