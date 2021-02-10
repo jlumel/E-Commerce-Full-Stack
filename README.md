@@ -1,11 +1,11 @@
-## Comandos:
+# Comandos:
 
-# Correr en modo desarrollo
+## Correr en modo desarrollo
 npm run dev
 
-# Generar Build para produccion
+## Generar Build para produccion
 npm run build
 
-# Correr en modo produccion
+## Correr en modo produccion
 npm start
     
