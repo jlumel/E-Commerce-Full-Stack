@@ -1,5 +1,12 @@
+interface Product {
+    id: number
+    title: string
+    price: number
+    thumbnail: string
+}
+
 interface Productos {
-    list: any[]
+    list: Product[]
 }
 
 class Productos {
@@ -16,7 +23,7 @@ class Productos {
         }
     }
 
-    addProduct(producto: object) {
+    addProduct(producto: Product) {
 
         this.list.push(producto)
         return producto

@@ -4,13 +4,12 @@ const botones = document.querySelectorAll('.btn')
 const id = () => {
     const input = document.querySelector('#id')
 
-    const id = input.value
-    return id
+    return input.value
 }
 
 const formPOST = '<label for="title">Ingresar nombre del producto</label><input name="title" id="title" type="text"><label for="price">Ingresar precio del producto</label><input name="price" id="price" type="text"><label for="thumbnail">Ingresar URL de la imagen del producto</label><input name="thumbnail" id="thumbnail" type="text"><button type="submit">Enviar</button>'
-const formPUT = '<label for="id">Ingresar Id del producto</label><input name="id" id="id" type="text"><label for="title">Ingresar nombre del producto</label><input name="title" id="title" type="text"><label for="price">Ingresar precio del producto</label><input name="price" id="price" type="text"><label for="thumbnail">Ingresar URL de la imagen del producto</label><input name="thumbnail" id="thumbnail" type="text"><button type="submit">Modificar producto</button>'
-const formDELETE = '<label for="id">Ingresar Id del producto</label><input name="id" id="id" type="text"><button type="submit">Eliminar producto</button>'
+const formPUT = '<label for="id">Ingresar Id del producto</label><input name="id" id="id" type="text"><label for="title">Ingresar nombre del producto</label><input name="title" id="title" type="text"><label for="price">Ingresar precio del producto</label><input name="price" id="price" type="text"><label for="thumbnail">Ingresar URL de la imagen del producto</label><input name="thumbnail" id="thumbnail" type="text"><button id="formPut">Modificar producto</button>'
+const formDELETE = '<label for="id">Ingresar Id del producto</label><input name="id" id="id" type="text"><button id="formDelete">Eliminar producto</button>'
 const formGetById = '<label for="id">Ingresar Id del producto</label><input name="input" id="id" type="text"><button type="submit">Buscar producto</button>'
 const formGetAll = '<button type="submit">Ver productos</button>'
 
@@ -27,17 +26,28 @@ botones.forEach(btn => {
                 form.innerHTML = formPOST
                 break;
             case 'put':
-                form.method = 'PUT'
+                form.method = ''
                 form.innerHTML = formPUT
-                document.querySelector('#id').addEventListener('keyup', e => {
-                    form.action = `/api/productos/${e.target.value}`
+                form.action = ''
+                document.querySelector('#formPut').style = "cursor: pointer;"
+                document.querySelector('#formPut').addEventListener('click', e => {
+                    e.preventDefault()
+                    fetch(`/api/productos/${id()}`, {
+                        method: 'PUT',
+                    })
                 })
+
                 break;
             case 'delete':
-                form.method = 'DELETE'
+                form.method = ''
                 form.innerHTML = formDELETE
-                document.querySelector('#id').addEventListener('keyup', e => {
-                    form.action = `/api/productos/${e.target.value}`
+                form.action = ''
+                document.querySelector('#formDelete').style = "cursor: pointer;"
+                document.querySelector('#formDelete').addEventListener('click', e => {
+                    e.preventDefault()
+                    fetch(`/api/productos/${id()}`, {
+                        method: 'DELETE',
+                    })
                 })
                 break;
             case 'getById':
@@ -47,7 +57,7 @@ botones.forEach(btn => {
                     form.action = `/api/productos/${e.target.value}`
                 })
                 break;
-                case 'getAll':
+            case 'getAll':
                 form.method = 'GET'
                 form.action = '/api/productos'
                 form.innerHTML = formGetAll

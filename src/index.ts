@@ -11,13 +11,6 @@ app.use('/api', router)
 
 const PORT: number = 8080
 
-interface Product {
-    id: number
-    title: string
-    price: number
-    thumbnail: string
-}
-
 const products = new Products()
 
 app.get('/', (req, res)=> {
@@ -30,7 +23,7 @@ router.get('/productos', (req, res) => {
 
 router.post('/productos', (req, res) => {
     const { title, price, thumbnail } = req.body
-    const producto: Product = {
+    const producto = {
         id: products.list.length + 1,
         title,
         price:Number(price),
@@ -79,5 +72,5 @@ const server = app.listen(PORT, () => {
 })
 
 server.on('error', error => {
-    console.log(`Ha ocurrido el siguiente error ${error}`)
+    console.log(`Ha ocurrido el siguiente error: ${error}`)
 })
