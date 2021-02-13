@@ -1,8 +1,21 @@
 import express from 'express';
+import path from 'path'
+import handlebars from 'express-handlebars'
 import Products from './Productos'
 
 const app = express()
 const router = express.Router()
+
+app.engine(
+    'hbs', handlebars({
+        extname: '.hbs',
+        defaultLayout: 'form.hbs',
+        layoutsDir: path.join('/views/layouts')
+    })
+)
+
+app.set('view engine', 'hbs')
+app.set('views', './views')
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -14,7 +27,7 @@ const PORT: number = 8080
 const products = new Products()
 
 app.get('/', (req, res)=> {
-res.sendFile('index.html')
+res.render('')
 })
 
 router.get('/productos', (req, res) => {
