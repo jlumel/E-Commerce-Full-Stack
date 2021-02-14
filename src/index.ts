@@ -9,8 +9,9 @@ const router = express.Router()
 app.engine(
     'hbs', handlebars({
         extname: '.hbs',
-        defaultLayout: 'form.hbs',
-        layoutsDir: path.join('/views/layouts')
+        defaultLayout: 'index.hbs',
+        layoutsDir: path.join(__dirname , '../views/layouts'),
+        partialsDir: path.join(__dirname , '../views/partials')
     })
 )
 
@@ -27,7 +28,11 @@ const PORT: number = 8080
 const products = new Products()
 
 app.get('/', (req, res)=> {
-res.render('')
+    res.sendFile('index.html')
+})
+
+router.get('/productos', (req, res)=> {
+res.render('productList', products)
 })
 
 router.get('/productos', (req, res) => {
@@ -43,7 +48,7 @@ router.post('/productos', (req, res) => {
         thumbnail
     }
     products.addProduct(producto)
-    res.send(producto)
+    res.sendFile(path.join(__dirname , '../public/index.html'))
 })
 
 router.get('/productos/:id', (req, res) => {
