@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path'
 import Products from './Productos'
 
 const app = express()
@@ -9,7 +10,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.static('public'))
 app.use('/api', router)
 
-app.set('views engine', 'ejs')
+app.set('view engine', 'ejs')
 
 const PORT: number = 8080
 
@@ -20,7 +21,7 @@ res.sendFile('index.html')
 })
 
 router.get('/productos', (req, res) => {
-    res.render('index', {products: products.list})
+    res.render('./layouts/index', {products: products.list})
 })
 
 router.post('/productos', (req, res) => {
@@ -32,7 +33,7 @@ router.post('/productos', (req, res) => {
         thumbnail
     }
     products.addProduct(producto)
-    res.send(producto)
+    res.sendFile(path.join(__dirname , '../public/index.html'))
 })
 
 router.get('/productos/:id', (req, res) => {
