@@ -35,10 +35,6 @@ router.get('/productos', (req, res)=> {
 res.render('productList', products)
 })
 
-router.get('/productos', (req, res) => {
-    res.send(products.getProducts())
-})
-
 router.post('/productos', (req, res) => {
     const { title, price, thumbnail } = req.body
     const producto = {
