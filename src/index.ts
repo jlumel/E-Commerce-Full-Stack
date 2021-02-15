@@ -9,6 +9,8 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.static('public'))
 app.use('/api', router)
 
+app.set('views engine', 'ejs')
+
 const PORT: number = 8080
 
 const products = new Products()
@@ -18,7 +20,7 @@ res.sendFile('index.html')
 })
 
 router.get('/productos', (req, res) => {
-    res.send(products.getProducts())
+    res.render('index', {products: products.list})
 })
 
 router.post('/productos', (req, res) => {
