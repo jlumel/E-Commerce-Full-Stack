@@ -1,0 +1,28 @@
+html 
+    head 
+        title='Productos'
+        link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css", integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl", crossorigin="anonymous")
+        script(src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js", integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi", crossorigin="anonymous")
+        script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js", integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG", crossorigin="anonymous")
+    body
+        h1(class="text-center")='Vista de Productos'
+        if products.length
+            
+
+            table(class="table table-striped table-hover table-dark")
+                thead
+                     tr
+
+                        th(scope="col")='Title'
+                        th(scope="col")='Price'
+                        th(scope="col")='Thumbnail'
+                tbody 
+                    each product in products 
+                        tr 
+                            td=product.title
+                            td=product.price
+                            td
+                                img(src=product.thumbnail)
+        else 
+            p(class="text-center")
+                mark='No hay productos'
