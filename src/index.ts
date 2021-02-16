@@ -51,7 +51,7 @@ router.post('/productos', (req, res) => {
     res.sendFile(path.join(__dirname , '../public/index.html'))
 })
 
-router.post('/productos', (req, res) => {
+router.post('/productos/vista', (req, res) => {
     const { title, price, thumbnail } = req.body
     const producto = {
         id: products.list.length + 1,
