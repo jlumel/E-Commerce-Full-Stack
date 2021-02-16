@@ -22,7 +22,7 @@ res.sendFile('index.html')
 })
 
 router.get('/productos/vista', (req, res) => {
-    res.render('./layouts/index', {products: products.list})
+    res.render('index', {products: products.list})
 })
 
 router.get('/productos', (req, res) => {
