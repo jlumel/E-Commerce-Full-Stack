@@ -20,8 +20,24 @@ app.get('/', (req, res)=> {
 res.sendFile('index.html')
 })
 
-router.get('/productos', (req, res) => {
+router.get('/productos/vista', (req, res) => {
     res.render('./layouts/index', {products: products.list})
+})
+
+router.get('/productos', (req, res) => {
+    res.send(products)
+})
+
+router.post('/productos/vista', (req, res) => {
+    const { title, price, thumbnail } = req.body
+    const producto = {
+        id: products.list.length + 1,
+        title,
+        price:Number(price),
+        thumbnail
+    }
+    products.addProduct(producto)
+    res.sendFile(path.join(__dirname , '../public/index.html'))
 })
 
 router.post('/productos', (req, res) => {
@@ -33,7 +49,7 @@ router.post('/productos', (req, res) => {
         thumbnail
     }
     products.addProduct(producto)
-    res.sendFile(path.join(__dirname , '../public/index.html'))
+    res.send(producto)
 })
 
 router.get('/productos/:id', (req, res) => {
