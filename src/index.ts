@@ -39,7 +39,7 @@ router.get('/productos/', (req, res)=> {
     res.send(products)
     })
 
-router.post('/productos', (req, res) => {
+router.post('/productos/vista', (req, res) => {
     const { title, price, thumbnail } = req.body
     const producto = {
         id: products.list.length + 1,
@@ -51,7 +51,7 @@ router.post('/productos', (req, res) => {
     res.sendFile(path.join(__dirname , '../public/index.html'))
 })
 
-router.post('/productos/vista', (req, res) => {
+router.post('/productos', (req, res) => {
     const { title, price, thumbnail } = req.body
     const producto = {
         id: products.list.length + 1,
