@@ -27,6 +27,8 @@ const PORT: number = 8080
 
 const products = new Products()
 
+let id = 0
+
 app.get('/', (req, res)=> {
     res.sendFile('index.html')
 })
@@ -42,7 +44,7 @@ router.get('/productos/', (req, res)=> {
 router.post('/productos/vista', (req, res) => {
     const { title, price, thumbnail } = req.body
     const producto = {
-        id: products.list.length + 1,
+        id: ++id,
         title,
         price:Number(price),
         thumbnail
@@ -54,7 +56,7 @@ router.post('/productos/vista', (req, res) => {
 router.post('/productos', (req, res) => {
     const { title, price, thumbnail } = req.body
     const producto = {
-        id: products.list.length + 1,
+        id: ++id,
         title,
         price:Number(price),
         thumbnail
@@ -83,6 +85,7 @@ router.put('/productos/:id', (req,res)=> {
     }
     products.removeProduct(id)
     products.addProduct(product)
+    products.list.sort((a,b)=> a.id -b.id)
     res.send(product)
 })
 
