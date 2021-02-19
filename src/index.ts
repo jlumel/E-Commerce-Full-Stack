@@ -1,5 +1,5 @@
-import express from 'express';
 import Products from './Productos'
+import express from 'express'
 
 const app = express()
 const http = require('http').createServer(app)
@@ -20,8 +20,6 @@ let id = 0
 
 app.get('/', (req, res) => {
     res.sendFile('index.html')
-
-
 })
 
 io.on('connection', (socket: SocketIO.Socket) => {
