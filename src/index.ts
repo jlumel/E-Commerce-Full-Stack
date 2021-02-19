@@ -16,7 +16,14 @@ const PORT: number = 8080
 
 const products = new Products()
 
-let id = 0
+const id = () => {
+    if (!products.list.length) {
+        return 1
+    } else {
+        const idList = products.list.map(product => product.id)
+        return idList[idList.length -1] + 1
+    }
+}
 
 app.get('/', (req, res) => {
     res.sendFile('index.html')
@@ -31,7 +38,7 @@ io.on('connection', (socket: SocketIO.Socket) => {
 
     socket.on('product', message => {
         const producto = {
-            id: ++id,
+            id: id(),
             ...message
         }
         io.emit('product', message)
@@ -50,7 +57,7 @@ router.get('/productos', (req, res) => {
 router.post('/productos', (req, res) => {
     const { title, price, thumbnail } = req.body
     const producto = {
-        id: ++id,
+        id: id(),
         title,
         price: Number(price),
         thumbnail
