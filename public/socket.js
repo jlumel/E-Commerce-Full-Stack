@@ -1,12 +1,18 @@
 const socket = io()
 
-const form = document.querySelector('form')
+const productForm = document.querySelector('#productForm')
 const title = document.querySelector('#title')
 const price = document.querySelector('#price')
 const thumbnail = document.querySelector('#thumbnail')
 const tbody = document.querySelector('tbody')
 
-form.addEventListener('submit', e => {
+const chatForm = document.querySelector('#chatForm')
+const email = document.querySelector('#email')
+const chat = document.querySelector('#mensajes')
+const mensaje = document.querySelector('#msj')
+
+
+productForm.addEventListener('submit', e => {
     e.preventDefault()
     if (title.value && price.value && thumbnail.value) {
         let data = {
@@ -22,7 +28,7 @@ form.addEventListener('submit', e => {
 })
 
 socket.on('product', message => {
-    
+
     let tr = document.createElement('tr')
     tr.innerHTML = `
                 <td>${message.title}</td>
@@ -30,4 +36,26 @@ socket.on('product', message => {
                 <td><img src=${message.thumbnail}></td>
             `
     tbody.appendChild(tr)
+
+})
+
+chatForm.addEventListener('submit', e => {
+    e.preventDefault()
+    if (email.value) {
+        const msj = {
+            mail: email.value,
+            date: `[${new Date().toLocaleString()}]`,
+            msg: mensaje.value
+        }
+        socket.emit('chat', msj)
+        mensaje.value = ''
+    }
+}
+)
+
+socket.on('chat', message => {
+    console.log(message)
+    let li = document.createElement('li')
+    li.innerHTML = `<span style="color: blue; font-weight: bold;">${message.mail}</span><span style="color: brown;"> ${message.date}</span><span style="color:green; font-style: italic;">: ${message.msg}</span>`
+    chat.appendChild(li)
 })

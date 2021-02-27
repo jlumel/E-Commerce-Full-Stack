@@ -37,10 +37,19 @@ class Productos {
         return producto
     }
 
-    removeProduct(id:number) {
+    removeProduct(id: number) {
         const removedProduct = this.list.find(producto => producto.id === id)
         this.list = this.list.filter(producto => producto !== removedProduct)
         return removedProduct
+    }
+
+    getId() {
+        if (!this.list.length) {
+            return 1
+        } else {
+
+            return this.list.map(product => product.id)[this.list.length - 1] + 1
+        }
     }
 
 }
