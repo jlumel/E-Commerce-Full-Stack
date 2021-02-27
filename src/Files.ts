@@ -1,5 +1,4 @@
 import fs from 'fs'
-import path from 'path'
 
 interface Files {
     file: string
@@ -11,10 +10,10 @@ class Files {
         this.file = file
     }
 
-    read(){
+    read() {
 
         try {
-           return fs.readFileSync(path.join(__dirname, this.file), 'utf-8') + '\n'
+            return fs.readFileSync(this.file, 'utf-8') + '\n'
         } catch (error) {
             console.log(error)
             return ''
@@ -24,24 +23,21 @@ class Files {
     write(message: string): void {
 
         if (this.read()) {
-            fs.writeFile(path.join(__dirname, this.file), this.read() + message, (error) => {
+            fs.writeFile(this.file, this.read() + message, (error) => {
                 if (error) {
                     console.log(error)
                 } else {
-                    console.log('Updated')
+                    console.log('File updated')
                 }
             })
         } else {
-            fs.writeFile(path.join(__dirname, this.file), message, (error) => {
+            fs.writeFile(this.file, message, (error) => {
                 if (error) {
                     console.log(error)
                 }
-                console.log('Created')
+                console.log('File created')
             })
         }
-
-
-
     }
 }
 

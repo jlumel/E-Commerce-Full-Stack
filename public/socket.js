@@ -41,7 +41,7 @@ socket.on('product', message => {
 
 chatForm.addEventListener('submit', e => {
     e.preventDefault()
-    if (email.value) {
+    if (email.value.match(/^[a-zA-Z]+([\.\-]?\w+)*@[a-zA-Z]+([\-]?\w+)*(\.[a-zA-Z]{2,7})$/)) {
         const msj = {
             mail: email.value,
             date: `[${new Date().toLocaleString()}]`,
