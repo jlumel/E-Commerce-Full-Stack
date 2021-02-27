@@ -54,7 +54,6 @@ chatForm.addEventListener('submit', e => {
 )
 
 socket.on('chat', message => {
-    console.log(message)
     let li = document.createElement('li')
     li.innerHTML = `<span style="color: blue; font-weight: bold;">${message.mail}</span><span style="color: brown;"> ${message.date}</span><span style="color:green; font-style: italic;">: ${message.msg}</span>`
     chat.appendChild(li)
