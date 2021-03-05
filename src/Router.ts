@@ -1,4 +1,5 @@
 import Products from './Productos'
+import Carritos from './Carritos'
 import { Router } from 'express'
 
 const Routes = (router: Router, products: Products) => {
@@ -50,6 +51,10 @@ const Routes = (router: Router, products: Products) => {
             res.sendStatus(404)
         }
         res.send(products.removeProduct(id))
+    })
+
+    router.get('/carrito', (requ, res)=> {
+
     })
 }
 

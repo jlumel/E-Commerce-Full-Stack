@@ -1,10 +1,8 @@
 import fs from 'fs'
 
-interface Files {
-    file: string
-}
-
 class Files {
+
+    file:string
 
     constructor(file: string) {
         this.file = file
