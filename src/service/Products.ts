@@ -1,15 +1,8 @@
-interface Product {
-    id: number
-    title: string
-    price: number
-    thumbnail: string
-}
+import Product from './Product'
 
-interface Productos {
+class Products {
+
     list: Product[]
-}
-
-class Productos {
 
     constructor() {
         this.list = []
@@ -54,4 +47,4 @@ class Productos {
 
 }
 
-export default Productos
+export default Products

@@ -1,31 +1,43 @@
-import Products from './Productos'
-import Websockets from './Websockets'
+import Products from './service/Products'
+import Carts from './service/Carts'
 import express from 'express'
-import Routes from './Router'
+import productos from './routes/productos'
+import carrito from './routes/carrito'
+import Files from './service/Files'
 
 const app = express()
-const http = require('http').createServer(app)
-const io = require('socket.io')(http)
+
+const port = process.env.PORT || 8080
+const ADMIN: Boolean = true
 
 const router = express.Router()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
-app.use('/api', router)
+app.use('/', router)
 
-const PORT: number = 8080
+const productsDB = new Files('./src/repositories/products.txt')
+const cartsDB = new Files('./src/repositories/carts.txt')
+let products = new Products()
+if (productsDB.read()) {
+    products.list = JSON.parse(productsDB.read()).list
+}
 
-const products = new Products()
+let carts = new Carts()
 
-app.get('/', (req, res) => {
-    res.sendFile('index.html')
+if (cartsDB.read()) {
+    carts.list = JSON.parse(cartsDB.read()).list
+}
+
+productos(router, products, ADMIN, productsDB)
+
+carrito(router, carts, cartsDB)
+
+const server = app.listen(port, () => {
+    console.log(`Server up in port ${port}`)
 })
 
-Websockets(io, products)
-
-Routes(router, products)
-
-http.listen(PORT, () => {
-    console.log(`Server up in port ${PORT}`)
+server.on('error', error => {
+    console.log(error)
 })

@@ -11,7 +11,7 @@ class Files {
     read() {
 
         try {
-            return fs.readFileSync(this.file, 'utf-8') + '\n'
+            return fs.readFileSync(this.file, 'utf-8')
         } catch (error) {
             console.log(error)
             return ''
@@ -21,7 +21,7 @@ class Files {
     write(message: string): void {
 
         if (this.read()) {
-            fs.writeFile(this.file, this.read() + message, (error) => {
+            fs.writeFile(this.file, message, (error) => {
                 if (error) {
                     console.log(error)
                 } else {
