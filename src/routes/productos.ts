@@ -1,5 +1,3 @@
-import fs from 'fs'
-import Files  from '../service/Files'
 import Products from '../service/Products'
 import { Router } from 'express'
 

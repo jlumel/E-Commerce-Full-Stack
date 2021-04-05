@@ -1,6 +1,4 @@
 import { Router } from 'express'
-import fs from 'fs'
-import Files  from '../service/Files'
 import Cart from '../service/Cart'
 import Carts from '../service/Carts'
 import Product from '../service/Product'
