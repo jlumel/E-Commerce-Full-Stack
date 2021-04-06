@@ -1,6 +1,6 @@
 class Product {
 
-    id: number
+    id: string
     timestamp: number
     title: string
     description: string
@@ -9,7 +9,7 @@ class Product {
     stock: number
     thumbnail: string
 
-    constructor(id: number, timestamp: number, title: string, description: string, code: string, price: number, stock: number, thumbnail: string) {
+    constructor(id: string, timestamp: number, title: string, description: string, code: string, price: number, stock: number, thumbnail: string) {
         this.id = id
         this.timestamp = timestamp
         this.title = title

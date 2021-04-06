@@ -22,7 +22,7 @@ class Products {
         return producto
     }
 
-    getProductById(id: number) {
+    getProductById(id: string) {
         const producto = this.list.find(producto => producto.id === id)
         if (!producto) {
             return { error: "Producto no encontrado" }
@@ -30,7 +30,7 @@ class Products {
         return producto
     }
 
-    removeProduct(id: number) {
+    removeProduct(id: string) {
         const removedProduct = this.list.find(producto => producto.id === id)
         this.list = this.list.filter(producto => producto !== removedProduct)
         return removedProduct

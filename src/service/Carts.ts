@@ -12,7 +12,7 @@ addCart(cart:Cart) {
     this.list.push(cart)
 }
 
-getCart(userId:number) {
+getCart(userId:string) {
     return this.list.find(cart => cart.id === userId)
 }
 

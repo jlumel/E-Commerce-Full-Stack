@@ -2,11 +2,11 @@ import Product from './Product'
 
 class Cart {
 
-    id:number
+    id:string
     timestamp:number
     products:Product[]
 
-    constructor(id:number,timestamp:number) {
+    constructor(id:string,timestamp:number) {
         this.id = id
         this.timestamp = timestamp
         this.products = []
@@ -25,7 +25,7 @@ class Cart {
         return product
     }
 
-    getProductById(id: number) {
+    getProductById(id: string) {
         const producto = this.products.find(producto => producto.id === id)
         if (!producto) {
             return { error: "Producto no encontrado" }
@@ -33,7 +33,7 @@ class Cart {
         return producto
     }
 
-    removeProduct(id: number) {
+    removeProduct(id: string) {
         const removedProduct = this.products.find(producto => producto.id === id)
         this.products = this.products.filter(producto => producto !== removedProduct)
         return removedProduct
