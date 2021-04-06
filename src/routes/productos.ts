@@ -4,9 +4,9 @@ import { Router } from 'express'
 const Productos = (router: Router, ADMIN: Boolean) => {
 
     router.get('/productos', (req, res) => {
-        if (req.body.title) {
+        if (req.query.title) {
             productService.getProductByTitle(req, res)
-        } else if (req.body.min) {
+        } else if (req.query.min) {
             productService.getProductsByPrice(req, res)
         } else {
             productService.getProducts(req, res)

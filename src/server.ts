@@ -11,10 +11,15 @@ const router = express.Router()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(express.static('public'))
 app.use('/', router)
 
 productos(router, ADMIN)
 carrito(router)
+
+app.get('/', (req, res) => {
+    res.sendFile('index.html')
+})
 
 const server = app.listen(port, () => {
     console.log(`Server up in port ${port}`)

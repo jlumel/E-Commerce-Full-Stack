@@ -44,8 +44,8 @@ const productService = {
     },
 
     getProductByTitle: (req: Request, res: Response)=> {
-        const {title} = req.body
-        productModel.find({ "title": title })
+        const {title} = req.query
+        productModel.find({title: {$regex: `${title}`, $options: "$i"}})
             .then(product => res.send(product))
             .catch(err => {
                 res.send({error: 3, descripcion: "Producto no encontrado"})
@@ -54,7 +54,7 @@ const productService = {
     },
 
     getProductsByPrice: (req: Request, res: Response)=> {
-        const {min, max} = req.body
+        const {min, max} = req.query
         productModel.find({ price: {$lte: Number(max), $gte: Number(min)}})
             .then(product => res.send(product))
             .catch(err => {
