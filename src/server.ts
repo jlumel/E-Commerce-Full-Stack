@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 
 const server = app.listen(port, () => {
     console.log(`Server up in port ${port}`)
-    require('./service/dataBaseConnection')
+    require('./DB/dataBaseConnection')
 })
 
 server.on('error', error => {
