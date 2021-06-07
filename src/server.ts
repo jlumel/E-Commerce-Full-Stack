@@ -1,11 +1,11 @@
 import express from 'express'
-import productos from './routes/productos'
-import carrito from './routes/carrito'
+import products from './routes/product.route'
+import cart from './routes/cart.route'
+import initApp from './service/initApp.service'
 
 const app = express()
 
-const port = process.env.PORT || 8080
-const ADMIN: Boolean = true
+const PORT = process.env.PORT || 8080
 
 const router = express.Router()
 
@@ -14,18 +14,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 app.use('/', router)
 
-productos(router, ADMIN)
-carrito(router)
+products(router, true)
+cart(router)
 
-app.get('/', (req, res) => {
-    res.sendFile('index.html')
-})
-
-const server = app.listen(port, () => {
-    console.log(`Server up in port ${port}`)
-    require('./DB/dataBaseConnection')
-})
-
-server.on('error', error => {
-    console.log(error)
-})
+initApp(PORT, app)

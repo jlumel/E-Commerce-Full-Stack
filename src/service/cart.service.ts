@@ -1,5 +1,6 @@
 import cartModel from '../models/cart.model'
 import { Request, Response } from 'express'
+import {errorLog} from './logger.service'
 
 const cartService = {
 
@@ -14,7 +15,7 @@ const cartService = {
             .then(() => res.sendStatus(201))
             .catch(err => {
                 res.send({ error: 6, descripcion: "Error al crear el carrito" })
-                console.log(err)
+                errorLog.error(err)
             })
     },
 
@@ -23,7 +24,7 @@ const cartService = {
         .then(carts => res.send(carts))
         .catch(err => {
             res.send({ error: 7, descripcion: "Carrito no encontrado" })
-            console.log(err)
+            errorLog.error(err)
         })
     },
 
@@ -33,7 +34,7 @@ const cartService = {
             .then(cart => res.send(cart))
             .catch(err => {
                 res.send({ error: 7, descripcion: "Carrito no encontrado" })
-                console.log(err)
+                errorLog.error(err)
             })
 
     },
@@ -44,7 +45,7 @@ const cartService = {
             .then(() => res.sendStatus(204))
             .catch(err => {
                 res.send({ error: 8, descripcion: "No se pudo eliminar el carrito" })
-                console.log(err)
+                errorLog.error(err)
             })
     }
 

@@ -1,5 +1,6 @@
 import productModel from '../models/product.model'
 import { Request, Response } from 'express'
+import {errorLog} from './logger.service'
 
 const productService = {
 
@@ -8,7 +9,7 @@ const productService = {
             .then(products => res.send(products))
             .catch(err => {
                 res.send({error: 1, descripcion: "No hay productos cargados"})
-                console.log(err)
+                errorLog.error(err)
             })
     },
 
@@ -29,7 +30,7 @@ const productService = {
             .then(() => res.sendStatus(201))
             .catch(err => {
                 res.send({error: 2, descripcion: "Error al cargar el producto"})
-                console.log(err)
+                errorLog.error(err)
             })
     },
 
@@ -39,7 +40,7 @@ const productService = {
             .then(product => res.send(product))
             .catch(err => {
                 res.send({error: 3, descripcion: "Producto no encontrado"})
-                console.log(err)
+                errorLog.error(err)
             })
     },
 
@@ -49,7 +50,7 @@ const productService = {
             .then(product => res.send(product))
             .catch(err => {
                 res.send({error: 3, descripcion: "Producto no encontrado"})
-                console.log(err)
+                errorLog.error(err)
             })
     },
 
@@ -59,7 +60,7 @@ const productService = {
             .then(product => res.send(product))
             .catch(err => {
                 res.send({error: 3, descripcion: "Producto no encontrado"})
-                console.log(err)
+                errorLog.error(err)
             })
     },
 
@@ -83,7 +84,7 @@ const productService = {
             .then(producto => res.send(producto))
             .catch(err => {
                 res.send({error: 4, descripcion: "No se pudo actualizar el producto"})
-                console.log(err)
+                errorLog.error(err)
             })
     },
 
@@ -93,7 +94,7 @@ const productService = {
             .then(() => res.sendStatus(204))
             .catch(err => {
                 res.send({error: 5, descripcion: "No se pudo eliminar el producto"})
-                console.log(err)
+                errorLog.error(err)
             })
     }
 
