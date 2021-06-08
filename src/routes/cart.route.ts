@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import cartService from '../service/cart.service'
-
+import sendMail from '../service/nodemailer.service'
+import {sendWhatsapp, sendSMS} from '../service/twilio.service'
 const Carrito = (router: Router) => {
 
     router.get('/carrito', (req, res) => {
@@ -39,6 +40,16 @@ const Carrito = (router: Router) => {
             res.redirect('/login')
         }
     })
+
+    router.post('/checkout', (req, res)=> {
+        const cart = req.body.cart
+        const user = req.body.user
+        sendMail('checkout', user, cart)
+        sendWhatsapp(user)
+        sendSMS(user)
+        res.send(cart)
+    })
+
 }
 
 export default Carrito

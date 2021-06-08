@@ -13,7 +13,7 @@ const register = (router: Router) => {
     })
 
     router.post('/register', passport.authenticate('register', { failureRedirect: '/failregister' }), (req: Request, res: Response) => {
-        sendMail(req.body.username)
+        sendMail('register',req.body, [])
         res.redirect('/')
     })
 

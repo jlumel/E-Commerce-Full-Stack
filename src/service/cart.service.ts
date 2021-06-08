@@ -47,6 +47,40 @@ const cartService = {
                 res.send({ error: 8, descripcion: "No se pudo eliminar el carrito" })
                 errorLog.error(err)
             })
+    },
+
+    addToCart: (req: Request, res: Response) => {
+        const id = req.params.id
+        const {timestamp, products} = req.body.cart
+        const product = req.body.product
+        cartModel.updateOne({"_id": id},
+        {
+            $set: {timestamp, products: product, ...products}
+        }
+        )
+        .then((cart:Cart) => res.send(cart))
+        .catch((err: any) => {
+            res.send({error: 4, descripcion: "No se pudo actualizar el carrito"})
+            errorLog.error(err)
+        })
+    },
+
+    removeFromCart: (req: Request, res: Response) => {
+        const id = req.params.id
+        const cart: Cart = req.body.cart
+        let {timestamp, products} = cart
+        const product = req.body.product
+        products = products.filter(product => product !== product)
+        cartModel.updateOne({"_id": id},
+        {
+            $set: {timestamp, products}
+        }
+        )
+        .then((cart:Cart) => res.send(cart))
+        .catch((err: any) => {
+            res.send({error: 4, descripcion: "No se pudo actualizar el carrito"})
+            errorLog.error(err)
+        })
     }
 
 

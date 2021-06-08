@@ -30,7 +30,8 @@
     "nodemailer": "^6.6.1",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "socket.io": "^4.1.2"
+    "socket.io": "^4.1.2",
+    "twilio": "^3.63.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
