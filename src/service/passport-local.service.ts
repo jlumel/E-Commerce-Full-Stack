@@ -1,40 +1,40 @@
 import bCrypt from 'bcrypt'
 import passport_local from 'passport-local'
-import userModel from '../models/users.model'
+import userModel, { User } from '../models/users.model'
 import passport from 'passport'
 import { Application, Request } from 'express'
-import {User} from '../models/users.model'
+import { logger, errorLog } from './logger.service'
 
 const LocalStrategy = passport_local.Strategy
-const validatePassword = (user:User, password:string) => bCrypt.compareSync(password, user.password)
-const createHash = (password:string) => bCrypt.hashSync(password, bCrypt.genSaltSync(10))
+const validatePassword = (user: User, password: string) => bCrypt.compareSync(password, user.password)
+const createHash = (password: string) => bCrypt.hashSync(password, bCrypt.genSaltSync(10))
 
-const passportLocal = (app:Application) => {
+const passportLocal = (app: Application) => {
 
-    passport.serializeUser((user, next:Function) => {
+    passport.serializeUser((user: any, next: any) => {
         next(null, user._id)
     })
-    
-    passport.deserializeUser((id:string, next:Function) => {
-        userModel.findById(id, (err:Object, user:User) => {
+
+    passport.deserializeUser((id: string, next: any) => {
+        userModel.findById(id, (err: any, user: User) => {
             next(err, user)
         })
     })
-    
+
     passport.use('login',
         new LocalStrategy(
             {
                 passReqToCallback: true
             },
-            (req:Request, username:string, password:string, next:Function) => {
-                userModel.findOne({ username: username }, (err:Object, user:User) => {
+            (req: Request, username: string, password: string, next: any) => {
+                userModel.findOne({ username: username }, (err: any, user: User) => {
                     if (err) return next(err)
                     if (!user) {
-                        console.log('Usuario no encontrado')
+                        logger.info('Usuario no encontrado')
                         return next(null, false)
                     }
                     if (!validatePassword(user, password)) {
-                        console.log('Password inválida')
+                        logger.info('Password inválida')
                         return next(null, false)
                     }
                     return next(null, user)
@@ -42,32 +42,40 @@ const passportLocal = (app:Application) => {
             }
         )
     )
-    
+
     passport.use('register',
         new LocalStrategy(
             {
                 passReqToCallback: true
             },
-            (req, username, password, next) => {
+            (req: Request, username: string, next: any) => {
                 const findOrCreateUser = () => {
-                    userModel.findOne({ username: username }, (err:Object, user:User) => {
+                    userModel.findOne({ username: username }, (err: Object, user: User) => {
                         if (err) {
-                            console.log(err)
+                            errorLog.error(err)
                             return next(err)
                         }
                         if (user) {
-                            console.log('Usuario ya existe')
+                            logger.info('Usuario ya existe')
                             return next(null, false)
                         } else {
+                            const { username, password, email, firstName, lastName, address, age, phone, avatar } = req.body
                             let newUser = new userModel()
                             newUser.username = username
                             newUser.password = createHash(password)
-                            newUser.save(err => {
+                            newUser.email = email
+                            newUser.firstName = firstName
+                            newUser.lastName = lastName
+                            newUser.address = address
+                            newUser.age = Number(age)
+                            newUser.phone = phone
+                            newUser.avatar = avatar
+                            newUser.save((err: any) => {
                                 if (err) {
-                                    console.log(err)
+                                    errorLog.error(err)
                                     throw err
                                 }
-                                console.log('Usuario registrado')
+                                logger.info('Usuario registrado')
                                 return next(null, newUser)
                             })
                         }
@@ -77,9 +85,9 @@ const passportLocal = (app:Application) => {
             }
         )
     )
-    
+
     app.use(passport.initialize())
     app.use(passport.session())
 }
 
-module.exports = passportLocal
+export default passportLocal

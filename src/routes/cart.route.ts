@@ -4,20 +4,40 @@ import cartService from '../service/cart.service'
 const Carrito = (router: Router) => {
 
     router.get('/carrito', (req, res) => {
-        cartService.getCarts(req, res)
+        if (req.isAuthenticated()) {
+
+            cartService.getCarts(req, res)
+        } else {
+            res.redirect('/login')
+        }
     })
 
     router.get('/carrito/:id', (req, res) => {
 
-        cartService.getCartById(req, res)
+        if (req.isAuthenticated()) {
+
+            cartService.getCartById(req, res)
+        } else {
+            res.redirect('/login')
+        }
     })
 
     router.post('/carrito', (req, res) => {
-        cartService.createCart(req, res)
+        if (req.isAuthenticated()) {
+
+            cartService.createCart(req, res)
+        } else {
+            res.redirect('/login')
+        }
     })
 
     router.delete('/carrito/:id', (req, res) => {
-        cartService.removeCart(req, res)
+        if (req.isAuthenticated()) {
+
+            cartService.removeCart(req, res)
+        } else {
+            res.redirect('/login')
+        }
     })
 }
 

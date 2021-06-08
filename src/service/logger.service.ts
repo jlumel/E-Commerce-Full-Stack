@@ -1,13 +1,13 @@
-const log4js = require('log4js')
+import log4js from 'log4js'
 
 log4js.configure({
     appenders: {
         error: {type: 'file', filename: './src/logs/error.log'},
-        loggerConsole: {type: 'console'}
+        logger: {type: 'console'}
     },
     categories: {
-        default: {appenders: ['loggerConsole'], level: 'info'},
-        error: {appenders: ['error', 'loggerConsole'], level: 'error'}
+        default: {appenders: ['logger'], level: 'info'},
+        error: {appenders: ['error', 'logger'], level: 'error'}
     }
 })
 

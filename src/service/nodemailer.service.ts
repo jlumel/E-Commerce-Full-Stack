@@ -16,7 +16,7 @@ const sendMail = (username:string) => {
 
     const mailOptions = {
         from: 'Ecommerce NodeJS',
-        to: 'trisha.towne@ethereal.email',
+        to: process.env.NODEMAILER_USER,
         subject: 'Información de registro de usuario',
         html: `<h1>${username} se ha registrado exitosamente ${new Date().toLocaleString()}</h1>`
     }
@@ -30,5 +30,5 @@ const sendMail = (username:string) => {
     })
 }
 
-module.exports = sendMail
+export default sendMail
 
