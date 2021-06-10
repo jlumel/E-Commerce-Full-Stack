@@ -6,6 +6,7 @@ import initApp from './service/initApp.service'
 import initSession from './service/initSession.service'
 import register from './routes/register.route'
 import login from './routes/login.route'
+import passportLocal from './service/passport-local.service'
 import compression from 'compression'
 
 const app = express()
@@ -21,6 +22,7 @@ app.use('/', router)
 
 products(router)
 cart(router)
+passportLocal(app)
 login(router)
 register(router)
 initSession(app)
