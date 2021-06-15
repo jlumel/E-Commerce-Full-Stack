@@ -19,16 +19,16 @@ const router = express.Router()
 app.use(compression())
 app.use(express.json())
 app.use(cookieParser())
-// app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
 app.use('/', router)
 
 products(router)
 cart(router)
+initSession(app)
 passportLocal(app)
 login(router)
 register(router)
-initSession(app)
 initApp(PORT, app)
 
 app.get('/', (req: Request, res: Response) => {
